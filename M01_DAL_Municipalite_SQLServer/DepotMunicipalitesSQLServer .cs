@@ -24,22 +24,27 @@ namespace M01_DAL_Municipalite_SQLServer
 
         public IEnumerable<Municipalite> listerMunicipalitesActives()
         {
-            throw new NotImplementedException();
+            return context.Municipalites
+                .Where(m => m.Actif)
+                .ToList();  
         }
 
         public void DesactiverMunicipalite(Municipalite municipalite)
         {
-            throw new NotImplementedException();
+            municipalite.Actif = false;
+            context.SaveChanges();
         }
 
         public void AjouterMunicipalite(Municipalite municipalite)
         {
-            throw new NotImplementedException();
+            context.Municipalites.Add(municipalite);
+            context.SaveChanges();
         }
 
         public void MAJMunicipalite(Municipalite municipalite)
         {
-            throw new NotImplementedException();
+            context.Municipalites.Update(municipalite);
+            context.SaveChanges();
         }
     }
 }
