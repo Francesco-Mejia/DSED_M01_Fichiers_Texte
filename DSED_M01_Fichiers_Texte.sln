@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSED_M01_Fichiers_Texte", "DSED_M01_Fichiers_Texte\DSED_M01_Fichiers_Texte.csproj", "{57414B16-BC50-4B3A-A56E-6DAE254DA6A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSED_M01_Fichiers_Texte", "DSED_M01_Fichiers_Texte\DSED_M01_Fichiers_Texte.csproj", "{57414B16-BC50-4B3A-A56E-6DAE254DA6A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M01_Srv_Municipalite", "M01_Srv_Municipalite\M01_Srv_Municipalite.csproj", "{F8DDBFD1-84B8-4D57-AA0C-391C6C91A786}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "M01_Srv_Municipalite", "M01_Srv_Municipalite\M01_Srv_Municipalite.csproj", "{F8DDBFD1-84B8-4D57-AA0C-391C6C91A786}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M01_Entite", "M01_Entite\M01_Entite.csproj", "{057C6579-C6C2-4662-8E8F-CD9B25D03F85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "M01_Entite", "M01_Entite\M01_Entite.csproj", "{057C6579-C6C2-4662-8E8F-CD9B25D03F85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M01_DAL_Municipalite_SQLServer", "M01_DAL_Municipalite_SQLServer\M01_DAL_Municipalite_SQLServer.csproj", "{410695D2-2D51-4293-94F6-4A482CD861FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "M01_DAL_Municipalite_SQLServer", "M01_DAL_Municipalite_SQLServer\M01_DAL_Municipalite_SQLServer.csproj", "{410695D2-2D51-4293-94F6-4A482CD861FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M01_DAL_Import_Munic_CSV", "M01_DAL_Import_Munic_CSV\M01_DAL_Import_Munic_CSV.csproj", "{CFCFA25A-31A1-4692-81C4-3078A979E1FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{410695D2-2D51-4293-94F6-4A482CD861FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{410695D2-2D51-4293-94F6-4A482CD861FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{410695D2-2D51-4293-94F6-4A482CD861FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFCFA25A-31A1-4692-81C4-3078A979E1FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFCFA25A-31A1-4692-81C4-3078A979E1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFCFA25A-31A1-4692-81C4-3078A979E1FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFCFA25A-31A1-4692-81C4-3078A979E1FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
