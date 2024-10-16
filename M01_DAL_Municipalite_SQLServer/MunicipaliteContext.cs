@@ -22,5 +22,30 @@ namespace M01_DAL_Municipalite_SQLServer
                 optionsBuilder.UseSqlServer(connectionString);
             } 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Municipalite>()
+                .HasKey(m => m.CodeGeographique);
+
+            modelBuilder.Entity<Municipalite>()
+                .Property(m => m.Nom)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            modelBuilder.Entity<Municipalite>()
+                .Property(m => m.AdresseCourriel)
+                .HasMaxLength(255);
+
+            modelBuilder.Entity<Municipalite>()
+                .Property(m => m.AdresseWeb)
+                .HasMaxLength(255);
+
+            modelBuilder.Entity<Municipalite>()
+                .Property(m => m.DateConstruction)
+                .HasColumnType("date");
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
