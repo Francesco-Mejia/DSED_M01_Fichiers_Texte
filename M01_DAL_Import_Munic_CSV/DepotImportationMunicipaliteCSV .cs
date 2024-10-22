@@ -13,7 +13,7 @@ namespace M01_DAL_Import_Munic_CSV
 
         public IEnumerable<Municipalite> LireMunicipalite()
         {
-            var municipalites = new Dictionary<int, Municipalite>();
+            Dictionary<int, Municipalite> municipalites = new Dictionary<int, Municipalite>();
 
             using (StreamReader reader = new StreamReader(_cheminFichier))
             {
