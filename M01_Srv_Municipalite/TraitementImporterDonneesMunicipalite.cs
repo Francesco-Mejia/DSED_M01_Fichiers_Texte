@@ -7,47 +7,40 @@ namespace M01_Srv_Municipalite
         private readonly IDepotImportationMunicipalite _depotImportation;
         private readonly IDepotMunicipalites _depotMunicipalites;
 
-        public TraitementImporterDonneesMunicipalite(IDepotImportationMunicipalite depotImportation, IDepotMunicipalites depotMunicipalites)
+        public TraitementImporterDonneesMunicipalite(IDepotImportationMunicipalite depotImportation,
+            IDepotMunicipalites depotMunicipalites)
         {
-            this._depotImportation = depotImportation;
-            this._depotMunicipalites = depotMunicipalites;
+            this._depotImportation = depotImportation ?? throw new ArgumentNullException(nameof(depotImportation));
+            this._depotMunicipalites =
+                depotMunicipalites ?? throw new ArgumentNullException(nameof(depotMunicipalites));
         }
 
         public StatistiquesImportationDonnees Executer()
         {
             var stats = new StatistiquesImportationDonnees();
-            var municipalitesImportees = 
-                _depotImportation.LireMunicipalite().ToDictionary(m => m.CodeGeographique);
-            var municipalitesExistantes =
-                _depotMunicipalites.listerMunicipalitesActives().ToDictionary(m => m.CodeGeographique);
-
-            foreach (var municipalite in municipalitesImportees.Values)
+            try
             {
-                if ((municipalitesExistantes.TryGetValue(municipalite.CodeGeographique, out var existante)))
-                {
-                    if (MunicipaliteAEteModifiee(existante, municipalite))
-                    {
-                        _depotMunicipalites.MAJMunicipalite(municipalite);
-                        stats.NombreEnregistrementsModifies++;
-                    }
+                Console.WriteLine("Début de l'importation des municipalités...");
+                var municipalitesImportees = _depotImportation.LireMunicipalite().ToList();
+                Console.WriteLine($"Nombre de municipalités importées : {municipalitesImportees.Count}");
 
-                    municipalitesExistantes.Remove(municipalite.CodeGeographique);
-                }
-                else
-                {
-                    _depotMunicipalites.AjouterMunicipalite(municipalite);
-                    stats.NombreEnregistrementsAjoutes++;
-                }
+                Console.WriteLine("Récupération des municipalités existantes...");
+                var municipalitesExistantes = _depotMunicipalites.listerMunicipalitesActives().ToList();
+                Console.WriteLine($"Nombre de municipalités existantes : {municipalitesExistantes.Count}");
+
+                // Le reste du code...
             }
-
-            foreach (var municipsliteADesactiver in municipalitesExistantes.Values)
+            catch (Exception ex)
             {
-                _depotMunicipalites.DesactiverMunicipalite(municipsliteADesactiver);
-                stats.NombreEnregistrementsDesactives++;
+                Console.WriteLine($"Une erreur s'est produite lors de l'exécution : {ex.Message}");
+                Console.WriteLine($"Stack Trace : {ex.StackTrace}");
             }
 
             return stats;
         }
+
+
+
 
         private bool MunicipaliteAEteModifiee(Municipalite existante, Municipalite nouvelle)
         {
@@ -60,3 +53,4 @@ namespace M01_Srv_Municipalite
         }
     }
 }
+

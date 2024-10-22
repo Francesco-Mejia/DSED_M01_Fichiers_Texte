@@ -13,37 +13,68 @@ namespace M01_DAL_Municipalite_SQLServer
         {
             if (!optionsBuilder.IsConfigured)
             {
-                IConfigurationRoot configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json")
-                    .Build();
+                try
+                {
+                    IConfigurationRoot configuration = new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json")
+                        .Build();
 
-                string connectionString = configuration.GetConnectionString("DefaultConnection");
-                optionsBuilder.UseSqlServer(connectionString);
+                    string connectionString = configuration.GetConnectionString("DefaultConnection");
+                    optionsBuilder.UseSqlServer(connectionString);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erreur lors de la configuration du contexte : {ex.Message}");
+                    throw;
+                }
             } 
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Municipalite>()
-                .HasKey(m => m.CodeGeographique);
+            modelBuilder.Entity<Municipalite>(entity =>
+            {
+                entity.ToTable("Municipalites");
 
-            modelBuilder.Entity<Municipalite>()
-                .Property(m => m.Nom)
-                .IsRequired()
-                .HasMaxLength(255);
+                entity.HasKey(m => m.CodeGeographique);
 
-            modelBuilder.Entity<Municipalite>()
-                .Property(m => m.AdresseCourriel)
-                .HasMaxLength(255);
+                entity.Property(m => m.CodeGeographique)
+                    .HasColumnName("mcode")
+                    .ValueGeneratedNever();
 
-            modelBuilder.Entity<Municipalite>()
-                .Property(m => m.AdresseWeb)
-                .HasMaxLength(255);
+                entity.Property(m => m.Nom)
+                    .HasColumnName("munnom")
+                    .IsRequired()
+                    .HasMaxLength(255);
 
-            modelBuilder.Entity<Municipalite>()
-                .Property(m => m.DateConstruction)
-                .HasColumnType("date");
+                entity.Property(m => m.AdresseCourriel)
+                    .HasColumnName("mcourriel")
+                    .HasMaxLength(255)
+                    .IsRequired(false);
+
+                entity.Property(m => m.AdresseWeb)
+                    .HasColumnName("mweb")
+                    .HasMaxLength(255)
+                    .IsRequired(false);
+
+                entity.Property(m => m.DateConstruction)
+                    .HasColumnName("mdatcons")
+                    .HasColumnType("date")
+                    .IsRequired(false);
+
+                entity.Property(m => m.Superficie)
+                    .HasColumnName("msuperf")
+                    .HasColumnType("decimal(18,2)")
+                    .IsRequired(false);
+
+                entity.Property(m => m.Population)
+                    .HasColumnName("mpopul")
+                    .IsRequired(false);
+
+                entity.Property(m => m.Actif)
+                    .HasDefaultValue(true);
+            });
 
             base.OnModelCreating(modelBuilder);
         }

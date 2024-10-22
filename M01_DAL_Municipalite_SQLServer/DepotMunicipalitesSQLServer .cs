@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using M01_Entite;
+using Microsoft.EntityFrameworkCore;
 
 namespace M01_DAL_Municipalite_SQLServer
 {
@@ -13,7 +14,12 @@ namespace M01_DAL_Municipalite_SQLServer
 
         public DepotMunicipalitesSQLServer()
         {
-            this.context = new MunicipaliteContext();
+            context = new MunicipaliteContext();
+            if (context == null)
+            {
+                throw new InvalidOperationException("Le contexte n'a pas pu être initialisé.");
+            }
+            Console.WriteLine("Contexte initialisé avec succès.");
         }
 
         public Municipalite chercherMunicipaliteParCodeGeographique(int codeGeographique)
@@ -24,9 +30,7 @@ namespace M01_DAL_Municipalite_SQLServer
 
         public IEnumerable<Municipalite> listerMunicipalitesActives()
         {
-            return context.Municipalites
-                .Where(m => m.Actif)
-                .ToList();  
+            return context.Municipalites.ToList();
         }
 
         public void DesactiverMunicipalite(Municipalite municipalite)
@@ -45,6 +49,11 @@ namespace M01_DAL_Municipalite_SQLServer
         {
             context.Municipalites.Update(municipalite);
             context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            context?.Dispose();
         }
     }
 }
