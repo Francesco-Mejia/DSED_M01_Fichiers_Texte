@@ -37,11 +37,11 @@ namespace M01_DAL_Municipalite_SQLServer
             {
                 entity.ToTable("municipalites");
 
-                entity.HasKey(m => m.CodeGeographique);
+                entity.HasKey(e => e.MunicipaliteId);
 
                 entity.Property(m => m.CodeGeographique)
                     .HasColumnName("mcode")
-                    .ValueGeneratedNever();
+                    .IsRequired();
 
                 entity.Property(m => m.Nom)
                     .HasColumnName("munnom")
