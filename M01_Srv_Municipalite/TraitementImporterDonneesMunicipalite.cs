@@ -27,6 +27,38 @@ namespace M01_Srv_Municipalite
                 Console.WriteLine("Récupération des municipalités existantes...");
                 var municipalitesExistantes = _depotMunicipalites.listerMunicipalitesActives().ToList();
                 Console.WriteLine($"Nombre de municipalités existantes : {municipalitesExistantes.Count}");
+
+                var dictMunicipalitesExistantes = municipalitesExistantes
+                    .ToDictionary(m => m.mcode);
+
+                foreach (var municipaliteImportee in municipalitesImportees)
+                {
+                    if (dictMunicipalitesExistantes.TryGetValue(municipaliteImportee.mcode, out var municipaliteExistante))
+                    {
+                        if (MunicipaliteAEteModifiee(municipaliteExistante, municipaliteImportee))
+                        {
+                            _depotMunicipalites.MAJMunicipalite(municipaliteImportee);
+                            stats.NombreEnregistrementsModifies++;
+                        }
+                    }
+                    else
+                    {
+                        _depotMunicipalites.AjouterMunicipalite(municipaliteImportee);
+                        stats.NombreEnregistrementsAjoutes++;
+                    }
+                }
+
+                foreach (var municipaliteExistante in municipalitesExistantes)
+                {
+                    if (!municipalitesImportees.Any(m => m.mcode == municipaliteExistante.mcode))
+                    {
+                        _depotMunicipalites.DesactiverMunicipalite(municipaliteExistante);
+                        stats.NombreEnregistrementsDesactives++;
+                    }
+                }
+
+                Console.WriteLine("Traitement exécuté avec succès.");
+                Console.WriteLine($"Statistiques d'importation: Ajoutés: {stats.NombreEnregistrementsAjoutes}, Modifiés: {stats.NombreEnregistrementsModifies}, Désactivés: {stats.NombreEnregistrementsDesactives}");
             }
             catch (Exception ex)
             {

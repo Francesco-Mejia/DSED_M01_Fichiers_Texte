@@ -28,7 +28,7 @@ namespace M01_DAL_Municipalite_SQLServer
                     Console.WriteLine($"Erreur lors de la configuration du contexte : {ex.Message}");
                     throw;
                 }
-            } 
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

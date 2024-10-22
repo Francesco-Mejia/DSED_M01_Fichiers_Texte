@@ -13,13 +13,14 @@ namespace M01_DAL_Import_Munic_CSV
 
         public IEnumerable<Municipalite> LireMunicipalite()
         {
-            var municipalites = new List<Municipalite>();
+            var municipalites = new Dictionary<int, Municipalite>();
 
             using (var reader = new StreamReader(_cheminFichier))
             {
                 reader.ReadLine();
 
                 string ligne;
+
                 while ((ligne = reader.ReadLine()) != null)
                 {
                     string[] champs = ligne.Split("\",\"")
@@ -28,7 +29,7 @@ namespace M01_DAL_Import_Munic_CSV
 
                     if (champs.Length >= 23)
                     {
-                        municipalites.Add(new Municipalite
+                        var municipalite = new Municipalite
                         {
                             mcode = ParserEntier(champs[0]),
                             munnom = champs[1],
@@ -37,12 +38,13 @@ namespace M01_DAL_Import_Munic_CSV
                             mdatcons = ParseDateTime(champs[18]),
                             msuperf = ParseDecimal(champs[21]),
                             mpopul = ParserEntier(champs[22])
-                        });
+                        };
+                        municipalites[municipalite.mcode] = municipalite;
                     }
                 }
             }
 
-            return municipalites;
+            return municipalites.Values;
         }
 
         private int ParserEntier(string valeur)

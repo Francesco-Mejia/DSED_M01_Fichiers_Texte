@@ -41,6 +41,10 @@ namespace M01_DAL_Municipalite_SQLServer
 
         public void AjouterMunicipalite(Municipalite municipalite)
         {
+            if (context.Municipalites.Any(m => m.mcode == municipalite.mcode))
+            {
+                throw new InvalidOperationException("Une municipalité avec ce code existe déjà.");
+            }
             context.Municipalites.Add(municipalite);
             context.SaveChanges();
         }
