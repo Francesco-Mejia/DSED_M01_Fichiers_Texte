@@ -37,38 +37,39 @@ namespace M01_DAL_Municipalite_SQLServer
             {
                 entity.ToTable("municipalites");
 
-                entity.HasKey(e => e.MunicipaliteId);
+                modelBuilder.Entity<Municipalite>()
+                    .HasKey(m => m.mcode);
 
-                entity.Property(m => m.CodeGeographique)
+                entity.Property(m => m.mcode)
                     .HasColumnName("mcode")
                     .IsRequired();
 
-                entity.Property(m => m.Nom)
+                entity.Property(m => m.munnom)
                     .HasColumnName("munnom")
                     .IsRequired()
                     .HasMaxLength(255);
 
-                entity.Property(m => m.AdresseCourriel)
+                entity.Property(m => m.mcourriel)
                     .HasColumnName("mcourriel")
                     .HasMaxLength(255)
                     .IsRequired(false);
 
-                entity.Property(m => m.AdresseWeb)
+                entity.Property(m => m.mweb)
                     .HasColumnName("mweb")
                     .HasMaxLength(255)
                     .IsRequired(false);
 
-                entity.Property(m => m.DateConstruction)
+                entity.Property(m => m.mdatcons)
                     .HasColumnName("mdatcons")
                     .HasColumnType("date")
                     .IsRequired(false);
 
-                entity.Property(m => m.Superficie)
+                entity.Property(m => m.msuperf)
                     .HasColumnName("msuperf")
                     .HasColumnType("decimal(18,2)")
                     .IsRequired(false);
 
-                entity.Property(m => m.Population)
+                entity.Property(m => m.mpopul)
                     .HasColumnName("mpopul")
                     .IsRequired(false);
 

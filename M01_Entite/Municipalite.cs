@@ -1,17 +1,17 @@
-﻿namespace M01_Entite
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace M01_Entite
 {
     public class Municipalite
     {
-        public int MunicipaliteId { get; set; }
-        public int CodeGeographique { get; set; }
-        public string Nom { get; set; }
-        public string? AdresseCourriel { get; set; }
-        public string? AdresseWeb { get; set; }
-        public DateTime? DateConstruction { get; set; }
-        public decimal? Superficie { get; set; }
-        public int? Population { get; set; }
+        [Key]
+        public int mcode { get; set; }
+        public string munnom { get; set; }
+        public string? mcourriel { get; set; }
+        public string? mweb { get; set; }
+        public DateTime? mdatcons { get; set; }
+        public decimal? msuperf { get; set; }
+        public int? mpopul { get; set; }
         public bool Actif { get; set; } = true;
-
-        public string ProprietesNonUtilisees { get; set; }
     }
 }

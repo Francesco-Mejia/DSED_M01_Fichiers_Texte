@@ -44,12 +44,12 @@ namespace M01_Srv_Municipalite
 
         private bool MunicipaliteAEteModifiee(Municipalite existante, Municipalite nouvelle)
         {
-            return existante.Nom != nouvelle.Nom ||
-                   existante.AdresseCourriel != nouvelle.AdresseCourriel ||
-                   existante.AdresseWeb != nouvelle.AdresseWeb ||
-                   existante.DateConstruction != nouvelle.DateConstruction ||
-                   existante.Superficie != nouvelle.Superficie ||
-                   existante.Population != nouvelle.Population;
+            return existante.munnom != nouvelle.munnom ||
+                   existante.mcourriel != nouvelle.mcourriel ||
+                   existante.mweb != nouvelle.mweb ||
+                   existante.mdatcons != nouvelle.mdatcons ||
+                   existante.msuperf != nouvelle.msuperf ||
+                   existante.mpopul != nouvelle.mpopul;
         }
     }
 }

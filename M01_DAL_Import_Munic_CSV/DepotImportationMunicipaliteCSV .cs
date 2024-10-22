@@ -30,13 +30,13 @@ namespace M01_DAL_Import_Munic_CSV
                     {
                         municipalites.Add(new Municipalite
                         {
-                            CodeGeographique = ParserEntier(champs[0]),
-                            Nom = champs[1],
-                            AdresseCourriel = string.IsNullOrWhiteSpace(champs[7]) ? null : champs[7],
-                            AdresseWeb = string.IsNullOrWhiteSpace(champs[8]) ? null : champs[8],
-                            DateConstruction = ParseDateTime(champs[18]),
-                            Superficie = ParseDecimal(champs[21]),
-                            Population = ParserEntier(champs[22])
+                            mcode = ParserEntier(champs[0]),
+                            munnom = champs[1],
+                            mcourriel = string.IsNullOrWhiteSpace(champs[7]) ? null : champs[7],
+                            mweb = string.IsNullOrWhiteSpace(champs[8]) ? null : champs[8],
+                            mdatcons = ParseDateTime(champs[18]),
+                            msuperf = ParseDecimal(champs[21]),
+                            mpopul = ParserEntier(champs[22])
                         });
                     }
                 }
