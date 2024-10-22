@@ -15,10 +15,6 @@ namespace M01_DAL_Municipalite_SQLServer
         public DepotMunicipalitesSQLServer()
         {
             context = new MunicipaliteContext();
-            if (context == null)
-            {
-                throw new InvalidOperationException("Le contexte n'a pas pu être initialisé.");
-            }
             Console.WriteLine("Contexte initialisé avec succès.");
         }
 
@@ -41,10 +37,6 @@ namespace M01_DAL_Municipalite_SQLServer
 
         public void AjouterMunicipalite(Municipalite municipalite)
         {
-            if (context.Municipalites.Any(m => m.mcode == municipalite.mcode))
-            {
-                throw new InvalidOperationException("Une municipalité avec ce code existe déjà.");
-            }
             context.Municipalites.Add(municipalite);
             context.SaveChanges();
         }

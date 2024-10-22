@@ -17,23 +17,23 @@ namespace M01_Srv_Municipalite
 
         public StatistiquesImportationDonnees Executer()
         {
-            var stats = new StatistiquesImportationDonnees();
+            StatistiquesImportationDonnees stats = new StatistiquesImportationDonnees();
             try
             {
                 Console.WriteLine("Début de l'importation des municipalités...");
-                var municipalitesImportees = _depotImportation.LireMunicipalite().ToList();
+                List<Municipalite> municipalitesImportees = _depotImportation.LireMunicipalite().ToList();
                 Console.WriteLine($"Nombre de municipalités importées : {municipalitesImportees.Count}");
 
                 Console.WriteLine("Récupération des municipalités existantes...");
-                var municipalitesExistantes = _depotMunicipalites.listerMunicipalitesActives().ToList();
+                List<Municipalite> municipalitesExistantes = _depotMunicipalites.listerMunicipalitesActives().ToList();
                 Console.WriteLine($"Nombre de municipalités existantes : {municipalitesExistantes.Count}");
 
-                var dictMunicipalitesExistantes = municipalitesExistantes
+                Dictionary<int, Municipalite> dictMunicipalitesExistantes = municipalitesExistantes
                     .ToDictionary(m => m.mcode);
 
-                foreach (var municipaliteImportee in municipalitesImportees)
+                foreach (Municipalite municipaliteImportee in municipalitesImportees)
                 {
-                    if (dictMunicipalitesExistantes.TryGetValue(municipaliteImportee.mcode, out var municipaliteExistante))
+                    if (dictMunicipalitesExistantes.TryGetValue(municipaliteImportee.mcode, out Municipalite municipaliteExistante))
                     {
                         if (MunicipaliteAEteModifiee(municipaliteExistante, municipaliteImportee))
                         {
@@ -48,7 +48,7 @@ namespace M01_Srv_Municipalite
                     }
                 }
 
-                foreach (var municipaliteExistante in municipalitesExistantes)
+                foreach (Municipalite municipaliteExistante in municipalitesExistantes)
                 {
                     if (!municipalitesImportees.Any(m => m.mcode == municipaliteExistante.mcode))
                     {

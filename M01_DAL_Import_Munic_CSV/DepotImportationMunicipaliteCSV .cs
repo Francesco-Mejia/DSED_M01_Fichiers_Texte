@@ -15,7 +15,7 @@ namespace M01_DAL_Import_Munic_CSV
         {
             var municipalites = new Dictionary<int, Municipalite>();
 
-            using (var reader = new StreamReader(_cheminFichier))
+            using (StreamReader reader = new StreamReader(_cheminFichier))
             {
                 reader.ReadLine();
 
@@ -29,7 +29,7 @@ namespace M01_DAL_Import_Munic_CSV
 
                     if (champs.Length >= 23)
                     {
-                        var municipalite = new Municipalite
+                        Municipalite municipalite = new Municipalite
                         {
                             mcode = ParserEntier(champs[0]),
                             munnom = champs[1],
