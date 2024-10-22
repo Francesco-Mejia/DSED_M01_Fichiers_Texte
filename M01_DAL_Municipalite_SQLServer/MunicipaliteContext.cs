@@ -35,7 +35,7 @@ namespace M01_DAL_Municipalite_SQLServer
         {
             modelBuilder.Entity<Municipalite>(entity =>
             {
-                entity.ToTable("Municipalites");
+                entity.ToTable("municipalites");
 
                 entity.HasKey(m => m.CodeGeographique);
 
