@@ -27,8 +27,6 @@ namespace M01_Srv_Municipalite
                 Console.WriteLine("Récupération des municipalités existantes...");
                 var municipalitesExistantes = _depotMunicipalites.listerMunicipalitesActives().ToList();
                 Console.WriteLine($"Nombre de municipalités existantes : {municipalitesExistantes.Count}");
-
-                // Le reste du code...
             }
             catch (Exception ex)
             {
@@ -38,9 +36,6 @@ namespace M01_Srv_Municipalite
 
             return stats;
         }
-
-
-
 
         private bool MunicipaliteAEteModifiee(Municipalite existante, Municipalite nouvelle)
         {

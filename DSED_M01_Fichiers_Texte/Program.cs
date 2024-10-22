@@ -12,7 +12,7 @@ namespace DSED_M01_Fichiers_Texte
             {
                 Console.WriteLine("Début du programme.");
 
-                var depotImportation = new DepotImportationMunicipaliteCSV("C:\\CSFOY AUTOMNE 2024\\Developpement_de_services_echange_donnees\\Exercices\\DSED_M01_Fichiers_Texte\\DSED_M01_Fichiers_Texte\\MUN.csv");
+                var depotImportation = new DepotImportationMunicipaliteCSV("MUN.csv");
                 Console.WriteLine("Dépôt d'importation créé avec succès.");
 
                 var depotMunicipalites = new DepotMunicipalitesSQLServer();
@@ -32,11 +32,6 @@ namespace DSED_M01_Fichiers_Texte
             {
                 Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
                 Console.WriteLine($"Stack Trace : {ex.StackTrace}");
-            }
-            finally
-            {
-                Console.WriteLine("Appuyez sur une touche pour quitter...");
-                Console.ReadKey();
             }
         }
     }
