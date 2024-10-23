@@ -23,6 +23,39 @@ namespace M01_Tests
                     new TraitementImporterDonneesMunicipalite(mockDepotImportation.Object,
                         mockDepotMunicipalites.Object);
             }
-        } 
+
+            [Fact]
+            public void Executer_AvecMunicipalitesImporteesEtExistantes()
+            {
+                List<Municipalite> municipalitesImportees = new List<Municipalite>
+                {
+                    new Municipalite {mcode = 101, munnom = "Municipalite A"},
+                    new Municipalite {mcode = 102, munnom = "Municipalite B"}
+                };
+
+                List<Municipalite> municipalitesExistantes = new List<Municipalite>
+                {
+                    new Municipalite {mcode = 101, munnom = "Municipalite A"},
+                    new Municipalite {mcode = 103, munnom = "Municipalite C"}
+                };
+
+                mockDepotImportation.Setup(d => d.LireMunicipalite()).Returns(municipalitesImportees);
+                mockDepotMunicipalites.Setup(d => d.listerMunicipalitesActives()).Returns(municipalitesExistantes);
+
+                StatistiquesImportationDonnees result = service.Executer();
+
+                mockDepotImportation.Verify(d => d.LireMunicipalite(), Times.Once);
+                mockDepotMunicipalites.Verify(d => d.listerMunicipalitesActives(), Times.Once);
+                Assert.NotNull(result);
+            }
+
+            [Fact]
+            public void Executer_LanceException_AfficheMessageErreur()
+            {
+                mockDepotImportation.Setup(d => d.LireMunicipalite()).Throws(new System.Exception("Erreur de fichier"));
+                var exception = Record.Exception(() => service.Executer());
+                Assert.Null(exception);
+            }
+        }
     }
 }
