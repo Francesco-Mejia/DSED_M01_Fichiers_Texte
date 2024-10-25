@@ -9,26 +9,9 @@ namespace M01_DAL_Municipalite_SQLServer
     {
         public DbSet<Municipalite> Municipalites { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public MunicipaliteContext(DbContextOptions<MunicipaliteContext> options)
+            : base(options)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                try
-                {
-                    IConfigurationRoot configuration = new ConfigurationBuilder()
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsettings.json")
-                        .Build();
-
-                    string connectionString = configuration.GetConnectionString("DefaultConnection");
-                    optionsBuilder.UseSqlServer(connectionString);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erreur lors de la configuration du contexte : {ex.Message}");
-                    throw;
-                }
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
