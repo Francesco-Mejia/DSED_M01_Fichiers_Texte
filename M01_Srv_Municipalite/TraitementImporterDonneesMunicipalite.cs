@@ -4,14 +4,14 @@ namespace M01_Srv_Municipalite
 {
     public class TraitementImporterDonneesMunicipalite
     {
-        private readonly IDepotImportationMunicipalite _depotImportation;
-        private readonly IDepotMunicipalites _depotMunicipalites;
+        private readonly IDepotImportationMunicipalite depotImportation;
+        private readonly IDepotMunicipalites depotMunicipalites;
 
         public TraitementImporterDonneesMunicipalite(IDepotImportationMunicipalite depotImportation,
             IDepotMunicipalites depotMunicipalites)
         {
-            this._depotImportation = depotImportation ?? throw new ArgumentNullException(nameof(depotImportation));
-            this._depotMunicipalites =
+            this.depotImportation = depotImportation ?? throw new ArgumentNullException(nameof(depotImportation));
+            this.depotMunicipalites =
                 depotMunicipalites ?? throw new ArgumentNullException(nameof(depotMunicipalites));
         }
 
@@ -21,11 +21,11 @@ namespace M01_Srv_Municipalite
             try
             {
                 Console.WriteLine("Début de l'importation des municipalités...");
-                List<Municipalite> municipalitesImportees = _depotImportation.LireMunicipalite().ToList();
+                List<Municipalite> municipalitesImportees = depotImportation.LireMunicipalite().ToList();
                 Console.WriteLine($"Nombre de municipalités importées : {municipalitesImportees.Count}");
 
                 Console.WriteLine("Récupération des municipalités existantes...");
-                List<Municipalite> municipalitesExistantes = _depotMunicipalites.listerMunicipalitesActives().ToList();
+                List<Municipalite> municipalitesExistantes = depotMunicipalites.listerMunicipalitesActives().ToList();
                 Console.WriteLine($"Nombre de municipalités existantes : {municipalitesExistantes.Count}");
 
                 Dictionary<int, Municipalite> dictMunicipalitesExistantes = municipalitesExistantes
@@ -37,13 +37,13 @@ namespace M01_Srv_Municipalite
                     {
                         if (MunicipaliteAEteModifiee(municipaliteExistante, municipaliteImportee))
                         {
-                            _depotMunicipalites.MAJMunicipalite(municipaliteImportee);
+                            depotMunicipalites.MAJMunicipalite(municipaliteImportee);
                             stats.NombreEnregistrementsModifies++;
                         }
                     }
                     else
                     {
-                        _depotMunicipalites.AjouterMunicipalite(municipaliteImportee);
+                        depotMunicipalites.AjouterMunicipalite(municipaliteImportee);
                         stats.NombreEnregistrementsAjoutes++;
                     }
                 }
@@ -52,7 +52,7 @@ namespace M01_Srv_Municipalite
                 {
                     if (!municipalitesImportees.Any(m => m.mcode == municipaliteExistante.mcode))
                     {
-                        _depotMunicipalites.DesactiverMunicipalite(municipaliteExistante);
+                        depotMunicipalites.DesactiverMunicipalite(municipaliteExistante);
                         stats.NombreEnregistrementsDesactives++;
                     }
                 }
