@@ -13,7 +13,7 @@ namespace DSED_M01_Fichiers_Texte
     {
         public static void Main(string[] args)
         {
-            IHost host = CreateHostBuilder(args).Build();
+            IHost host = InitialisateurHote.CreateHostBuilder(args).Build();
 
             using (IServiceScope scope = host.Services.CreateScope())
             {
@@ -23,22 +23,5 @@ namespace DSED_M01_Fichiers_Texte
                 traitementService.Executer();
             }
         }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) => Host
-                .CreateDefaultBuilder(args)
-                .ConfigureServices((context, services) =>
-                {
-                    IConfiguration configuration = context.Configuration;
-
-                    services.AddDbContext<MunicipaliteContext>(options =>
-                        options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-                    services.AddTransient<IDepotImportationMunicipalite, DepotImportationMunicipaliteCSV>(provider =>
-                        new DepotImportationMunicipaliteCSV("MUN.csv"));
-                    services.AddTransient<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
-
-                    services.AddTransient<TraitementImporterDonneesMunicipalite>();
-                    services.AddTransient<TraitementService>();
-                });
     }
 }

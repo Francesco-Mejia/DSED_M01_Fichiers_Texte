@@ -19,7 +19,8 @@ namespace M01_DAL_Municipalite_SQLServer
 
         public Municipalite chercherMunicipaliteParCodeGeographique(int codeGeographique)
         {
-            return context.Municipalites
+            return context
+                .Municipalites
                 .FirstOrDefault(m => m.mcode == codeGeographique);
         }
 
