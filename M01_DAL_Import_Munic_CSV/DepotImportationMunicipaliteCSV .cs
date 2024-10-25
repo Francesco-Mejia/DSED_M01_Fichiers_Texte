@@ -4,18 +4,18 @@ namespace M01_DAL_Import_Munic_CSV
 {
     public class DepotImportationMunicipaliteCSV : IDepotImportationMunicipalite
     {
-        private readonly string _cheminFichier;
+        private readonly string cheminFichier;
 
-        public DepotImportationMunicipaliteCSV(string cheminFichier)
+        public DepotImportationMunicipaliteCSV(string _cheminFichier)
         {
-            this._cheminFichier = cheminFichier;
+            this.cheminFichier = _cheminFichier;
         }
 
         public IEnumerable<Municipalite> LireMunicipalite()
         {
             Dictionary<int, Municipalite> municipalites = new Dictionary<int, Municipalite>();
 
-            using (StreamReader reader = new StreamReader(_cheminFichier))
+            using (StreamReader reader = new StreamReader(cheminFichier))
             {
                 reader.ReadLine();
 

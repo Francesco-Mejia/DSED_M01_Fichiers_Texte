@@ -2,35 +2,43 @@
 using M01_DAL_Municipalite_SQLServer;
 using M01_Entite;
 using M01_Srv_Municipalite;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace DSED_M01_Fichiers_Texte
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            try
+            IHost host = CreateHostBuilder(args).Build();
+
+            using (IServiceScope scope = host.Services.CreateScope())
             {
-                Console.WriteLine("Début du programme");
+                IServiceProvider services = scope.ServiceProvider;
 
-                DepotImportationMunicipaliteCSV depotImportation = new DepotImportationMunicipaliteCSV("MUN.csv");
-
-                DepotMunicipalitesSQLServer depotMunicipalites = new DepotMunicipalitesSQLServer();
-                Console.WriteLine("Dépôt de municipalités créé avec succès");
-
-                TraitementImporterDonneesMunicipalite traitement = new TraitementImporterDonneesMunicipalite(depotImportation, depotMunicipalites);
-
-                StatistiquesImportationDonnees statistiques = traitement.Executer();
-                Console.WriteLine("Traitement exécuté avec succès");
-
-                Console.WriteLine("Statistiques d'importation:");
-                Console.WriteLine(statistiques.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
-                Console.WriteLine($"Stack Trace : {ex.StackTrace}");
+                TraitementService traitementService = services.GetRequiredService<TraitementService>();
+                traitementService.Executer();
             }
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) => Host
+                .CreateDefaultBuilder(args)
+                .ConfigureServices((context, services) =>
+                {
+                    IConfiguration configuration = context.Configuration;
+
+                    services.AddDbContext<MunicipaliteContext>(options =>
+                        options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+                    services.AddTransient<IDepotImportationMunicipalite, DepotImportationMunicipaliteCSV>(provider =>
+                        new DepotImportationMunicipaliteCSV("MUN.csv"));
+                    services.AddTransient<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
+
+                    services.AddTransient<TraitementImporterDonneesMunicipalite>();
+                    services.AddTransient<TraitementService>();
+                });
     }
 }

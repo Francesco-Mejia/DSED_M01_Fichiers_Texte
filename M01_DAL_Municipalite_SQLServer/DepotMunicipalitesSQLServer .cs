@@ -12,10 +12,9 @@ namespace M01_DAL_Municipalite_SQLServer
     {
         private readonly MunicipaliteContext context;
 
-        public DepotMunicipalitesSQLServer()
+        public DepotMunicipalitesSQLServer(MunicipaliteContext _context)
         {
-            context = new MunicipaliteContext();
-            Console.WriteLine("Contexte initialisé avec succès.");
+            this.context = _context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public Municipalite chercherMunicipaliteParCodeGeographique(int codeGeographique)

@@ -53,7 +53,7 @@ namespace M01_Tests
             public void Executer_LanceException_AfficheMessageErreur()
             {
                 mockDepotImportation.Setup(d => d.LireMunicipalite()).Throws(new System.Exception("Erreur de fichier"));
-                var exception = Record.Exception(() => service.Executer());
+                Exception exception = Record.Exception(() => service.Executer());
                 Assert.Null(exception);
             }
 
