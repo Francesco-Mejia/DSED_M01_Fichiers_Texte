@@ -18,8 +18,7 @@ namespace M01_Srv_Municipalite
         public StatistiquesImportationDonnees Executer()
         {
             StatistiquesImportationDonnees stats = new StatistiquesImportationDonnees();
-            try
-            {
+
                 Console.WriteLine("Début de l'importation des municipalités...");
                 List<Municipalite> municipalitesImportees = depotImportation.LireMunicipalite().ToList();
                 Console.WriteLine($"Nombre de municipalités importées : {municipalitesImportees.Count}");
@@ -59,13 +58,7 @@ namespace M01_Srv_Municipalite
 
                 Console.WriteLine("Traitement exécuté avec succès.");
                 Console.WriteLine($"Statistiques d'importation: Ajoutés: {stats.NombreEnregistrementsAjoutes}, Modifiés: {stats.NombreEnregistrementsModifies}, Désactivés: {stats.NombreEnregistrementsDesactives}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Une erreur s'est produite lors de l'exécution : {ex.Message}");
-                Console.WriteLine($"Stack Trace : {ex.StackTrace}");
-            }
-
+            
             return stats;
         }
 
