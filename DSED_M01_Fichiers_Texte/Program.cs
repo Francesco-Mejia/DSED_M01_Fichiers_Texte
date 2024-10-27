@@ -2,6 +2,7 @@
 using M01_DAL_Municipalite_SQLServer;
 using M01_Entite;
 using M01_Srv_Municipalite;
+using M01_DAL_Import_Munic_JSON;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@ namespace DSED_M01_Fichiers_Texte
     {
         public static void Main(string[] args)
         {
-            IHost host = InitialisateurHote.CreateHostBuilder(args).Build();
+            IHost host = InitialisateurHote.CreateHostBuilderJSON(args).Build();
 
             using (IServiceScope scope = host.Services.CreateScope())
             {
