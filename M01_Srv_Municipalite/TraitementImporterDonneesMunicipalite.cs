@@ -7,12 +7,20 @@ namespace M01_Srv_Municipalite
         private readonly IDepotImportationMunicipalite depotImportation;
         private readonly IDepotMunicipalites depotMunicipalites;
 
-        public TraitementImporterDonneesMunicipalite(IDepotImportationMunicipalite depotImportation,
-            IDepotMunicipalites depotMunicipalites)
+        public TraitementImporterDonneesMunicipalite(IDepotImportationMunicipalite _depotImportation,
+            IDepotMunicipalites _depotMunicipalites)
         {
-            this.depotImportation = depotImportation ?? throw new ArgumentNullException(nameof(depotImportation));
-            this.depotMunicipalites =
-                depotMunicipalites ?? throw new ArgumentNullException(nameof(depotMunicipalites));
+            if (depotImportation is null)
+            {
+                throw new ArgumentNullException(nameof(_depotImportation));
+            }
+            this.depotImportation = _depotImportation;
+
+            if (depotMunicipalites is null)
+            {
+                throw new ArgumentNullException(nameof(_depotMunicipalites));
+            }
+            this.depotMunicipalites = _depotMunicipalites;
         }
 
         public StatistiquesImportationDonnees Executer()
@@ -57,7 +65,8 @@ namespace M01_Srv_Municipalite
                 }
 
                 Console.WriteLine("Traitement exécuté avec succès.");
-                Console.WriteLine($"Statistiques d'importation: Ajoutés: {stats.NombreEnregistrementsAjoutes}, Modifiés: {stats.NombreEnregistrementsModifies}, Désactivés: {stats.NombreEnregistrementsDesactives}");
+                Console.WriteLine($"Statistiques d'importation: Ajoutés: {stats.NombreEnregistrementsAjoutes}, Modifiés: {stats.NombreEnregistrementsModifies}" +
+                                  $", Désactivés: {stats.NombreEnregistrementsDesactives}");
             
             return stats;
         }

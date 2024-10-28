@@ -14,15 +14,27 @@ namespace DSED_M01_Fichiers_Texte
     {
         public static void Main(string[] args)
         {
-            IHost host = InitialisateurHote.CreateHostBuilderJSON(args).Build();
+            // VERSION CSV
+            IHost hostCSV = InitialisateurHote.CreateHostBuilderCSV(args).Build();
 
-            using (IServiceScope scope = host.Services.CreateScope())
+            using (IServiceScope scope = hostCSV.Services.CreateScope())
             {
                 IServiceProvider services = scope.ServiceProvider;
 
                 TraitementService traitementService = services.GetRequiredService<TraitementService>();
                 traitementService.Executer();
             }
+
+            // VERSION JSON
+            //IHost hostJSON = InitialisateurHote.CreateHostBuilderJSON(args).Build();
+
+            //using (IServiceScope scope = hostJSON.Services.CreateScope())
+            //{
+            //    IServiceProvider services = scope.ServiceProvider;
+
+            //    TraitementService traitementService = services.GetRequiredService<TraitementService>();
+            //    traitementService.Executer();
+            //}
         }
     }
 }
