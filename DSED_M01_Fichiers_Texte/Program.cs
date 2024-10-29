@@ -26,15 +26,15 @@ namespace DSED_M01_Fichiers_Texte
             }
 
             // VERSION JSON
-            //IHost hostJSON = InitialisateurHote.CreateHostBuilderJSON(args).Build();
+            IHost hostJSON = InitialisateurHote.CreateHostBuilderJSON(args).Build();
 
-            //using (IServiceScope scope = hostJSON.Services.CreateScope())
-            //{
-            //    IServiceProvider services = scope.ServiceProvider;
+            using (IServiceScope scope = hostJSON.Services.CreateScope())
+            {
+                IServiceProvider services = scope.ServiceProvider;
 
-            //    TraitementService traitementService = services.GetRequiredService<TraitementService>();
-            //    traitementService.Executer();
-            //}
+                TraitementService traitementService = services.GetRequiredService<TraitementService>();
+                traitementService.Executer();
+            }
         }
     }
 }

@@ -20,6 +20,7 @@ namespace M01_DAL_Import_Munic_JSON
                 string reponseJson = client.GetStringAsync(url).Result;
 
                 dynamic data = JsonConvert.DeserializeObject(reponseJson);
+                //rootObject System.Text.Json.JsonSerializer.Deserialize<>(reponseJson);
 
                 List<Municipalite> municipalites = new List<Municipalite>();
 

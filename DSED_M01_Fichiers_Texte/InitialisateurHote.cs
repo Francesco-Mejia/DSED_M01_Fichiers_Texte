@@ -26,12 +26,12 @@ namespace DSED_M01_Fichiers_Texte
                 services.AddDbContext<MunicipaliteContext>(options =>
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddTransient<IDepotImportationMunicipalite, DepotImportationMunicipaliteCSV>(provider =>
+                services.AddSingleton<IDepotImportationMunicipalite, DepotImportationMunicipaliteCSV>(provider =>
                     new DepotImportationMunicipaliteCSV("MUN.csv"));
-                services.AddTransient<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
+                services.AddSingleton<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
 
-                services.AddTransient<TraitementImporterDonneesMunicipalite>();
-                services.AddTransient<TraitementService>();
+                services.AddSingleton<TraitementImporterDonneesMunicipalite>();
+                services.AddSingleton<TraitementService>();
             });
 
         public static IHostBuilder CreateHostBuilderJSON(string[] args) => Host
@@ -43,12 +43,12 @@ namespace DSED_M01_Fichiers_Texte
                 services.AddDbContext<MunicipaliteContext>(options =>
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddTransient<IDepotImportationMunicipalite, DepotImportationMunicipaliteJSON>(provider =>
+                services.AddSingleton<IDepotImportationMunicipalite, DepotImportationMunicipaliteJSON>(provider =>
                     new DepotImportationMunicipaliteJSON("https://www.donneesquebec.ca/recherche/api/action/datastore_search?resource_id=19385b4e-5503-4330-9e59-f998f5918363&limit=3000"));
-                services.AddTransient<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
+                services.AddSingleton<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
 
-                services.AddTransient<TraitementImporterDonneesMunicipalite>();
-                services.AddTransient<TraitementService>();
+                services.AddSingleton<TraitementImporterDonneesMunicipalite>();
+                services.AddSingleton<TraitementService>();
             });
     }
 }
