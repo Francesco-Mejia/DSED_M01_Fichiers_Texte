@@ -17,6 +17,7 @@ namespace DSED_M01_Fichiers_Texte
 {
     public class InitialisateurHote
     {
+        // VERSION CSV
         public static IHostBuilder CreateHostBuilderCSV(string[] args) => Host
             .CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>
@@ -34,6 +35,7 @@ namespace DSED_M01_Fichiers_Texte
                 services.AddSingleton<TraitementService>();
             });
 
+        // VERSION JSON
         public static IHostBuilder CreateHostBuilderJSON(string[] args) => Host
             .CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>
@@ -43,12 +45,12 @@ namespace DSED_M01_Fichiers_Texte
                 services.AddDbContext<MunicipaliteContext>(options =>
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddSingleton<IDepotImportationMunicipalite, DepotImportationMunicipaliteJSON>(provider =>
+                services.AddScoped<IDepotImportationMunicipalite, DepotImportationMunicipaliteJSON>(provider =>
                     new DepotImportationMunicipaliteJSON("https://www.donneesquebec.ca/recherche/api/action/datastore_search?resource_id=19385b4e-5503-4330-9e59-f998f5918363&limit=3000"));
-                services.AddSingleton<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
+                services.AddScoped<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
 
-                services.AddSingleton<TraitementImporterDonneesMunicipalite>();
-                services.AddSingleton<TraitementService>();
+                services.AddScoped<TraitementImporterDonneesMunicipalite>();
+                services.AddScoped<TraitementService>();
             });
     }
 }

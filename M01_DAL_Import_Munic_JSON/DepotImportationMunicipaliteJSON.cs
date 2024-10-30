@@ -19,22 +19,21 @@ namespace M01_DAL_Import_Munic_JSON
             {
                 string reponseJson = client.GetStringAsync(url).Result;
 
-                dynamic data = JsonConvert.DeserializeObject(reponseJson);
-                //rootObject System.Text.Json.JsonSerializer.Deserialize<>(reponseJson);
+                RootObject rootObject = System.Text.Json.JsonSerializer.Deserialize<RootObject>(reponseJson);
 
                 List<Municipalite> municipalites = new List<Municipalite>();
 
-                foreach (dynamic record in data.result.records)
+                foreach (Record record in rootObject.result.records)
                 {
                     Municipalite municipalite = new Municipalite
                     {
-                        mcode = int.Parse(record["mcode"].ToString()),
-                        munnom = record["munnom"].ToString(),
-                        mcourriel = string.IsNullOrWhiteSpace(record["mcourriel"].ToString()) ? null : record["mcourriel"].ToString(),
-                        mweb = string.IsNullOrWhiteSpace(record["mweb"].ToString()) ? null : record["mweb"].ToString(),
-                        mdatcons = DateTime.TryParse(record["mdatcons"].ToString(), out DateTime date) ? (DateTime?)date : null,
-                        msuperf = decimal.TryParse(record["msuperf"].ToString(), out decimal superficie) ? superficie : (decimal?)null,
-                        mpopul = int.TryParse(record["mpopul"].ToString(), out int population) ? population : 0,
+                        mcode = int.Parse(record.mcode),
+                        munnom = record.munnom,
+                        mcourriel = string.IsNullOrWhiteSpace(record.mcourriel) ? null : record.mcourriel,
+                        mweb = string.IsNullOrWhiteSpace(record.mweb) ? null : record.mweb,
+                        mdatcons = DateTime.TryParse(record.mdatcons, out DateTime date) ? (DateTime?)date : null,
+                        msuperf = decimal.TryParse(record.msuperf, out decimal superficie) ? superficie : (decimal?)null,
+                        mpopul = int.TryParse(record.mpopul, out int population) ? population : 0,
                         Actif = true
                     };
                     municipalites.Add(municipalite);
@@ -42,5 +41,26 @@ namespace M01_DAL_Import_Munic_JSON
                 return municipalites;
             }
         }
+    }
+
+    public class RootObject
+    {
+        public Result result { get; set; }
+    }
+
+    public class Result
+    {
+        public Record[] records { get; set;}
+    }
+
+    public class Record
+    {
+        public string mcode { get; set; }
+        public string munnom { get; set; }
+        public string mcourriel { get; set; }
+        public string mweb { get; set; }
+        public string mdatcons { get; set; }
+        public string msuperf { get; set; }
+        public string mpopul { get; set; }
     }
 }
