@@ -27,16 +27,16 @@ namespace M01_Tests
             [Fact]
             public void Executer_AvecMunicipalitesImporteesEtExistantes()
             {
-                List<Municipalite> municipalitesImportees = new List<Municipalite>
+                List<MunicipaliteDTO> municipalitesImportees = new List<MunicipaliteDTO>
                 {
-                    new Municipalite {mcode = 101, munnom = "Municipalite A"},
-                    new Municipalite {mcode = 102, munnom = "Municipalite B"}
+                    new MunicipaliteDTO {mcode = 101, munnom = "Municipalite A"},
+                    new MunicipaliteDTO {mcode = 102, munnom = "Municipalite B"}
                 };
 
-                List<Municipalite> municipalitesExistantes = new List<Municipalite>
+                List<MunicipaliteDTO> municipalitesExistantes = new List<MunicipaliteDTO>
                 {
-                    new Municipalite {mcode = 101, munnom = "Municipalite A"},
-                    new Municipalite {mcode = 103, munnom = "Municipalite C"}
+                    new MunicipaliteDTO {mcode = 101, munnom = "Municipalite A"},
+                    new MunicipaliteDTO {mcode = 103, munnom = "Municipalite C"}
                 };
 
                 mockDepotImportation.Setup(d => d.LireMunicipalite()).Returns(municipalitesImportees);
@@ -52,12 +52,12 @@ namespace M01_Tests
             [Fact]
             public void Executer_AvecAucuneMunicipaliteImportee()
             {
-                List<Municipalite> municipalitesImportees = new List<Municipalite>();
+                List<MunicipaliteDTO> municipalitesImportees = new List<MunicipaliteDTO>();
 
-                List<Municipalite> municipalitesExistantes = new List<Municipalite>
+                List<MunicipaliteDTO> municipalitesExistantes = new List<MunicipaliteDTO>
                 {
-                    new Municipalite {mcode = 101, munnom = "Municipalite A"},
-                    new Municipalite {mcode = 102, munnom = "Municipalite B"}
+                    new MunicipaliteDTO {mcode = 101, munnom = "Municipalite A"},
+                    new MunicipaliteDTO {mcode = 102, munnom = "Municipalite B"}
                 };
 
                 mockDepotImportation.Setup(d => d.LireMunicipalite()).Returns(municipalitesImportees);
@@ -73,18 +73,18 @@ namespace M01_Tests
             [Fact]
             public void Executer_AvecMunicipalitesReimportees()
             {
-                List<Municipalite> municipalitesImportees = new List<Municipalite>
+                List<MunicipaliteDTO> municipalitesImportees = new List<MunicipaliteDTO>
                 {
-                    new Municipalite {mcode = 101, munnom = "Municipalite A MAJ"},
-                    new Municipalite {mcode = 102, munnom = "Municipalite B"},
-                    new Municipalite {mcode = 103, munnom = "Municipalite C"}
+                    new MunicipaliteDTO {mcode = 101, munnom = "Municipalite A MAJ"},
+                    new MunicipaliteDTO {mcode = 102, munnom = "Municipalite B"},
+                    new MunicipaliteDTO {mcode = 103, munnom = "Municipalite C"}
                 };
 
-                List<Municipalite> municipalitesExistantes = new List<Municipalite>
+                List<MunicipaliteDTO> municipalitesExistantes = new List<MunicipaliteDTO>
                 {
-                    new Municipalite {mcode = 101, munnom = "Municipalite A"},
-                    new Municipalite {mcode = 102, munnom = "Municipalite B"},
-                    new Municipalite {mcode = 104, munnom = "Municipalite D"}
+                    new MunicipaliteDTO {mcode = 101, munnom = "Municipalite A"},
+                    new MunicipaliteDTO {mcode = 102, munnom = "Municipalite B"},
+                    new MunicipaliteDTO {mcode = 104, munnom = "Municipalite D"}
                 };
 
                 mockDepotImportation.Setup(d => d.LireMunicipalite()).Returns(municipalitesImportees);
@@ -95,20 +95,20 @@ namespace M01_Tests
                 Assert.Equal(1, resultat.NombreEnregistrementsDesactives);
                 Assert.Equal(1, resultat.NombreEnregistrementsAjoutes);
                 Assert.Equal(1, resultat.NombreEnregistrementsModifies);
-                mockDepotMunicipalites.Verify(d => d.MAJMunicipalite(It.Is<Municipalite>(m => m.mcode == 101 && m.munnom == "Municipalite A MAJ")), Times.Once);
+                mockDepotMunicipalites.Verify(d => d.MAJMunicipalite(It.Is<MunicipaliteDTO>(m => m.mcode == 101 && m.munnom == "Municipalite A MAJ")), Times.Once);
             }
 
             [Fact]
             public void Executer_AvecToutesMunicipalitesNouvelles()
             {
-                List<Municipalite> municipalitesImportees = new List<Municipalite>
+                List<MunicipaliteDTO> municipalitesImportees = new List<MunicipaliteDTO>
                 {
-                    new Municipalite {mcode = 201, munnom = "Nouvelle Municipalite X"},
-                    new Municipalite {mcode = 202, munnom = "Nouvelle Municipalite Y"},
-                    new Municipalite {mcode = 203, munnom = "Nouvelle Municipalite Z"}
+                    new MunicipaliteDTO {mcode = 201, munnom = "Nouvelle Municipalite X"},
+                    new MunicipaliteDTO {mcode = 202, munnom = "Nouvelle Municipalite Y"},
+                    new MunicipaliteDTO {mcode = 203, munnom = "Nouvelle Municipalite Z"}
                 };
 
-                List<Municipalite> municipalitesExistantes = new List<Municipalite>();
+                List<MunicipaliteDTO> municipalitesExistantes = new List<MunicipaliteDTO>();
 
                 mockDepotImportation.Setup(d => d.LireMunicipalite()).Returns(municipalitesImportees);
                 mockDepotMunicipalites.Setup(d => d.listerMunicipalitesActives()).Returns(municipalitesExistantes);
@@ -118,7 +118,7 @@ namespace M01_Tests
                 Assert.Equal(0, resultat.NombreEnregistrementsDesactives);
                 Assert.Equal(3, resultat.NombreEnregistrementsAjoutes);
                 Assert.Equal(0, resultat.NombreEnregistrementsModifies);
-                mockDepotMunicipalites.Verify(d => d.AjouterMunicipalite(It.IsAny<Municipalite>()), Times.Exactly(3));
+                mockDepotMunicipalites.Verify(d => d.AjouterMunicipalite(It.IsAny<MunicipaliteDTO>()), Times.Exactly(3));
             }
         }
     }

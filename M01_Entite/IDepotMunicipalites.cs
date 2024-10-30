@@ -8,10 +8,10 @@ namespace M01_Entite
 {
     public interface IDepotMunicipalites
     {
-        Municipalite chercherMunicipaliteParCodeGeographique(int codeGeographique);
-        IEnumerable<Municipalite> listerMunicipalitesActives();
-        void DesactiverMunicipalite(Municipalite municipalite);
-        void AjouterMunicipalite(Municipalite municipalite);
-        void MAJMunicipalite(Municipalite municipalite);
+        MunicipaliteDTO chercherMunicipaliteParCodeGeographique(int codeGeographique);
+        IEnumerable<MunicipaliteDTO> listerMunicipalitesActives();
+        void DesactiverMunicipalite(MunicipaliteDTO municipalite);
+        void AjouterMunicipalite(MunicipaliteDTO municipalite);
+        void MAJMunicipalite(MunicipaliteDTO municipalite);
     }
 }

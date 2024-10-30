@@ -17,33 +17,33 @@ namespace M01_DAL_Municipalite_SQLServer
             this.context = _context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Municipalite chercherMunicipaliteParCodeGeographique(int codeGeographique)
+        public MunicipaliteDTO chercherMunicipaliteParCodeGeographique(int codeGeographique)
         {
             return context
                 .Municipalites
                 .FirstOrDefault(m => m.mcode == codeGeographique);
         }
 
-        public IEnumerable<Municipalite> listerMunicipalitesActives()
+        public IEnumerable<MunicipaliteDTO> listerMunicipalitesActives()
         {
             return context.Municipalites.ToList();
         }
 
-        public void DesactiverMunicipalite(Municipalite municipalite)
+        public void DesactiverMunicipalite(MunicipaliteDTO municipalite)
         {
             municipalite.Actif = false;
             context.SaveChanges();
         }
 
-        public void AjouterMunicipalite(Municipalite municipalite)
+        public void AjouterMunicipalite(MunicipaliteDTO municipalite)
         {
             context.Municipalites.Add(municipalite);
             context.SaveChanges();
         }
 
-        public void MAJMunicipalite(Municipalite municipalite)
+        public void MAJMunicipalite(MunicipaliteDTO municipalite)
         {
-            Municipalite municiapaliteExistante = context.Municipalites
+            MunicipaliteDTO municiapaliteExistante = context.Municipalites
                 .Local
                 .FirstOrDefault(m => m.mcode == municipalite.mcode);
 

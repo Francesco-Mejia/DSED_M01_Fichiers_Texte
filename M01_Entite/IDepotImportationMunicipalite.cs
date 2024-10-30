@@ -8,6 +8,6 @@ namespace M01_Entite
 {
     public interface IDepotImportationMunicipalite
     {
-        IEnumerable<Municipalite> LireMunicipalite();
+        IEnumerable<MunicipaliteDTO> LireMunicipalite();
     }
 }

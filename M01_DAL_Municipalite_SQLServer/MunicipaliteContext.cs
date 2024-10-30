@@ -7,7 +7,7 @@ namespace M01_DAL_Municipalite_SQLServer
 {
     public class MunicipaliteContext : DbContext
     {
-        public DbSet<Municipalite> Municipalites { get; set; }
+        public DbSet<MunicipaliteDTO> Municipalites { get; set; }
 
         public MunicipaliteContext(DbContextOptions<MunicipaliteContext> options)
             : base(options)
@@ -16,11 +16,11 @@ namespace M01_DAL_Municipalite_SQLServer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Municipalite>(entity =>
+            modelBuilder.Entity<MunicipaliteDTO>(entity =>
             {
                 entity.ToTable("municipalites");
 
-                modelBuilder.Entity<Municipalite>()
+                modelBuilder.Entity<MunicipaliteDTO>()
                     .HasKey(m => m.mcode);
 
                 entity.Property(m => m.mcode)

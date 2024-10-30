@@ -11,9 +11,9 @@ namespace M01_DAL_Import_Munic_CSV
             this.cheminFichier = _cheminFichier;
         }
 
-        public IEnumerable<Municipalite> LireMunicipalite()
+        public IEnumerable<MunicipaliteDTO> LireMunicipalite()
         {
-            Dictionary<int, Municipalite> municipalites = new Dictionary<int, Municipalite>();
+            Dictionary<int, MunicipaliteDTO> municipalites = new Dictionary<int, MunicipaliteDTO>();
 
             using (StreamReader reader = new StreamReader(cheminFichier))
             {
@@ -29,7 +29,7 @@ namespace M01_DAL_Import_Munic_CSV
 
                     if (champs.Length >= 23)
                     {
-                        Municipalite municipalite = new Municipalite
+                        MunicipaliteDTO municipalite = new MunicipaliteDTO
                         {
                             mcode = ParserEntier(champs[0]),
                             munnom = champs[1],

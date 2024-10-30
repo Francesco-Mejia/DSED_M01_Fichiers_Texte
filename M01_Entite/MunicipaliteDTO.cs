@@ -2,7 +2,7 @@
 
 namespace M01_Entite
 {
-    public class Municipalite
+    public class MunicipaliteDTO
     {
         [Key]
         public int mcode { get; set; }

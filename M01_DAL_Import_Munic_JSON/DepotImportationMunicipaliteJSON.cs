@@ -13,7 +13,7 @@ namespace M01_DAL_Import_Munic_JSON
             this.url = _url;
         }
 
-        public IEnumerable<Municipalite> LireMunicipalite()
+        public IEnumerable<MunicipaliteDTO> LireMunicipalite()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -21,11 +21,11 @@ namespace M01_DAL_Import_Munic_JSON
 
                 RootObject rootObject = System.Text.Json.JsonSerializer.Deserialize<RootObject>(reponseJson);
 
-                List<Municipalite> municipalites = new List<Municipalite>();
+                List<MunicipaliteDTO> municipalites = new List<MunicipaliteDTO>();
 
                 foreach (Record record in rootObject.result.records)
                 {
-                    Municipalite municipalite = new Municipalite
+                    MunicipaliteDTO municipalite = new MunicipaliteDTO
                     {
                         mcode = int.Parse(record.mcode),
                         munnom = record.munnom,

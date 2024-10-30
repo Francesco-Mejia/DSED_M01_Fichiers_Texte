@@ -20,19 +20,19 @@ namespace M01_Srv_Municipalite
             StatistiquesImportationDonnees stats = new StatistiquesImportationDonnees();
 
             Console.WriteLine("Début de l'importation des municipalités...");
-            List<Municipalite> municipalitesImportees = depotImportation.LireMunicipalite().ToList();
+            List<MunicipaliteDTO> municipalitesImportees = depotImportation.LireMunicipalite().ToList();
             Console.WriteLine($"Nombre de municipalités importées : {municipalitesImportees.Count}");
 
             Console.WriteLine("Récupération des municipalités existantes...");
-            List<Municipalite> municipalitesExistantes = depotMunicipalites.listerMunicipalitesActives().ToList();
+            List<MunicipaliteDTO> municipalitesExistantes = depotMunicipalites.listerMunicipalitesActives().ToList();
             Console.WriteLine($"Nombre de municipalités existantes : {municipalitesExistantes.Count}");
 
-            Dictionary<int, Municipalite> dictMunicipalitesExistantes = municipalitesExistantes
+            Dictionary<int, MunicipaliteDTO> dictMunicipalitesExistantes = municipalitesExistantes
                 .ToDictionary(m => m.mcode);
 
-            foreach (Municipalite municipaliteImportee in municipalitesImportees)
+            foreach (MunicipaliteDTO municipaliteImportee in municipalitesImportees)
             {
-                if (dictMunicipalitesExistantes.TryGetValue(municipaliteImportee.mcode, out Municipalite municipaliteExistante))
+                if (dictMunicipalitesExistantes.TryGetValue(municipaliteImportee.mcode, out MunicipaliteDTO municipaliteExistante))
                 {
                     if (MunicipaliteAEteModifiee(municipaliteExistante, municipaliteImportee))
                     {
@@ -47,7 +47,7 @@ namespace M01_Srv_Municipalite
                 }
             }
 
-            foreach (Municipalite municipaliteExistante in municipalitesExistantes)
+            foreach (MunicipaliteDTO municipaliteExistante in municipalitesExistantes)
             {
                 if (!municipalitesImportees.Any(m => m.mcode == municipaliteExistante.mcode))
                 {
@@ -63,7 +63,7 @@ namespace M01_Srv_Municipalite
             return stats;
         }
 
-        private bool MunicipaliteAEteModifiee(Municipalite existante, Municipalite nouvelle)
+        private bool MunicipaliteAEteModifiee(MunicipaliteDTO existante, MunicipaliteDTO nouvelle)
         {
             return existante.munnom != nouvelle.munnom ||
                    existante.mcourriel != nouvelle.mcourriel ||
