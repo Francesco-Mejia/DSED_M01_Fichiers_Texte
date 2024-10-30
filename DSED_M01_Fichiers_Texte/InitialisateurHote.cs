@@ -29,10 +29,10 @@ namespace DSED_M01_Fichiers_Texte
 
                 services.AddSingleton<IDepotImportationMunicipalite, DepotImportationMunicipaliteCSV>(provider =>
                     new DepotImportationMunicipaliteCSV("MUN.csv"));
-                services.AddSingleton<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
+                services.AddScoped<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
 
-                services.AddSingleton<TraitementImporterDonneesMunicipalite>();
-                services.AddSingleton<TraitementService>();
+                services.AddScoped<TraitementImporterDonneesMunicipalite>();
+                services.AddScoped<TraitementService>();
             });
 
         // VERSION JSON
