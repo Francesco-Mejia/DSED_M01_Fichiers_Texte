@@ -43,7 +43,20 @@ namespace M01_DAL_Municipalite_SQLServer
 
         public void MAJMunicipalite(Municipalite municipalite)
         {
-            context.Municipalites.Update(municipalite);
+            Municipalite municiapaliteExistante = context.Municipalites
+                .Local
+                .FirstOrDefault(m => m.mcode == municipalite.mcode);
+
+            if (municiapaliteExistante != null)
+            {
+                context.Entry(municiapaliteExistante).CurrentValues.SetValues(municipalite);
+            }
+            else
+            {
+                context.Municipalites.Attach(municipalite);
+                context.Entry(municipalite).State = EntityState.Modified;
+            }
+
             context.SaveChanges();
         }
 

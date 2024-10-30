@@ -32,8 +32,8 @@ namespace M01_DAL_Import_Munic_JSON
                         mcourriel = string.IsNullOrWhiteSpace(record.mcourriel) ? null : record.mcourriel,
                         mweb = string.IsNullOrWhiteSpace(record.mweb) ? null : record.mweb,
                         mdatcons = DateTime.TryParse(record.mdatcons, out DateTime date) ? (DateTime?)date : null,
-                        msuperf = decimal.TryParse(record.msuperf, out decimal superficie) ? superficie : (decimal?)null,
-                        mpopul = int.TryParse(record.mpopul, out int population) ? population : 0,
+                        msuperf = record.msuperf,
+                        mpopul = record.mpopul,
                         Actif = true
                     };
                     municipalites.Add(municipalite);
@@ -60,7 +60,7 @@ namespace M01_DAL_Import_Munic_JSON
         public string mcourriel { get; set; }
         public string mweb { get; set; }
         public string mdatcons { get; set; }
-        public string msuperf { get; set; }
-        public string mpopul { get; set; }
+        public decimal msuperf { get; set; }
+        public int mpopul { get; set; }
     }
 }
