@@ -17,7 +17,7 @@ namespace DSED_M01_Fichiers_Texte
 {
     public class InitialisateurHote
     {
-        // VERSION CSV
+        // Version CSV
         public static IHostBuilder CreateHostBuilderCSV(string[] args) => Host
             .CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>
@@ -35,7 +35,7 @@ namespace DSED_M01_Fichiers_Texte
                 services.AddScoped<TraitementService>();
             });
 
-        // VERSION JSON
+        // Version JSON
         public static IHostBuilder CreateHostBuilderJSON(string[] args) => Host
             .CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>

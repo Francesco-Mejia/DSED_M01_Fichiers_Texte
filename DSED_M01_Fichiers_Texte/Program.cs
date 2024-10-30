@@ -14,7 +14,7 @@ namespace DSED_M01_Fichiers_Texte
     {
         public static void Main(string[] args)
         {
-            // VERSION CSV
+            // Version CSV
             IHost hostCSV = InitialisateurHote.CreateHostBuilderCSV(args).Build();
 
             using (IServiceScope scope = hostCSV.Services.CreateScope())
@@ -25,7 +25,7 @@ namespace DSED_M01_Fichiers_Texte
                 traitementService.Executer();
             }
 
-            // VERSION JSON
+            // Version JSON
             IHost hostJSON = InitialisateurHote.CreateHostBuilderJSON(args).Build();
 
             using (IServiceScope scope = hostJSON.Services.CreateScope())
