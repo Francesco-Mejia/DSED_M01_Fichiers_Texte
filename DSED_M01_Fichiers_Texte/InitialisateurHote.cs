@@ -32,7 +32,7 @@ namespace DSED_M01_Fichiers_Texte
                 services.AddScoped<IDepotMunicipalites, DepotMunicipalitesSQLServer>();
 
                 services.AddScoped<TraitementImporterDonneesMunicipalite>();
-                services.AddScoped<TraitementService>();
+                services.AddScoped<TraitementService>();       
             });
 
         // Version JSON
